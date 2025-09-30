@@ -1,62 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fresher Jobs India</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresher Jobs Portal</title>
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    
+    body { background-color: #f4f6f8; color: #333; }
+    header { background-color: #0d6efd; color: white; padding: 20px; text-align: center; }
+    header h1 { font-size: 2rem; }
+    
+    main { max-width: 1000px; margin: 20px auto; padding: 0 10px; }
+    
+    .job-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .job-title { font-size: 1.2rem; font-weight: bold; color: #0d6efd; }
+    .job-meta { font-size: 0.9rem; color: #666; margin: 5px 0; }
+    .apply-btn {
+      display: inline-block;
+      background-color: #198754;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .apply-btn:hover { background-color: #157347; }
+    
+    footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #888; margin-top: 30px; }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <header class="bg-blue-600 text-white p-6 text-center text-2xl font-bold">
-        India Fresher & 0–2 Yrs Experience Jobs
-    </header>
+<body>
 
-    <div class="p-6">
-        <input type="text" id="searchSkill" placeholder="Search by skill..." class="border p-2 rounded w-full mb-4">
-        <input type="text" id="searchLocation" placeholder="Search by location..." class="border p-2 rounded w-full mb-4">
-        <button id="filterBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Filter Jobs</button>
+  <header>
+    <h1>Fresher & Early-Career Jobs Portal</h1>
+    <p>Aggregated jobs for freshers and < 2 years experience</p>
+  </header>
+
+  <main>
+    <div id="jobs-container">
+      <p>Loading jobs...</p>
     </div>
+  </main>
 
-    <div id="jobList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
-        <!-- Jobs will be rendered here -->
-    </div>
+  <footer>
+    &copy; 2025 Job Aggregator. Built by Akshay & Chattu.
+  </footer>
 
-    <script>
-        async function loadJobs() {
-            const res = await fetch('jobs.json');
-            let jobs = await res.json();
+  <script>
+    // Fetch JSON dynamically
+    fetch('real_jobs.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('jobs-container');
+        container.innerHTML = ""; // clear "Loading..."
 
-            function render(filteredJobs) {
-                const container = document.getElementById('jobList');
-                container.innerHTML = '';
-                filteredJobs.forEach(job => {
-                    const card = document.createElement('div');
-                    card.className = 'bg-white p-4 rounded shadow hover:shadow-lg transition';
-                    card.innerHTML = `
-                        <h2 class="font-bold text-lg">${job.title}</h2>
-                        <p class="text-gray-700">${job.company}</p>
-                        <p class="text-gray-500">${job.location}</p>
-                        <p class="text-gray-500">${job.experience}</p>
-                        <a href="${job.link}" target="_blank" class="text-blue-600 hover:underline">Apply</a>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-
-            render(jobs);
-
-            document.getElementById('filterBtn').addEventListener('click', () => {
-                const skill = document.getElementById('searchSkill').value.toLowerCase();
-                const location = document.getElementById('searchLocation').value.toLowerCase();
-                const filtered = jobs.filter(job =>
-                    job.title.toLowerCase().includes(skill) &&
-                    job.location.toLowerCase().includes(location)
-                );
-                render(filtered);
-            });
+        if (data.length === 0) {
+          container.innerHTML = "<p>No jobs found currently.</p>";
+          return;
         }
 
-        loadJobs();
-    </script>
+        data.forEach(job => {
+          const div = document.createElement('div');
+          div.classList.add('job-card');
+          div.innerHTML = `
+            <div class="job-title">${job.title}</div>
+            <div class="job-meta">${job.company} | ${job.location}</div>
+            <div class="job-meta">Posted: ${job.postedDate}</div>
+            <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
+          `;
+          container.appendChild(div);
+        });
+      })
+      .catch(err => {
+        console.error("Failed to load jobs:", err);
+        document.getElementById('jobs-container').innerHTML = "<p>Failed to load jobs.</p>";
+      });
+  </script>
+
 </body>
 </html>
