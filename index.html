@@ -1,97 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fresher Jobs Portal</title>
-  <style>
-    /* Reset */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
-    
-    body { background-color: #f4f6f8; color: #333; }
-    header { background-color: #0d6efd; color: white; padding: 20px; text-align: center; }
-    header h1 { font-size: 2rem; }
-    
-    main { max-width: 1000px; margin: 20px auto; padding: 0 10px; }
-    
-    .job-card {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 15px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .job-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    
-    .job-title { font-size: 1.2rem; font-weight: bold; color: #0d6efd; }
-    .job-meta { font-size: 0.9rem; color: #666; margin: 5px 0; }
-    .apply-btn {
-      display: inline-block;
-      background-color: #198754;
-      color: white;
-      padding: 8px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    .apply-btn:hover { background-color: #157347; }
-    
-    footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #888; margin-top: 30px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karriere India | The Opportunity Journal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+body {
+    font-family: 'Patrick Hand', cursive;
+    background: #fdfdfd;
+    background-image: linear-gradient(to bottom, transparent 97%, #ddd 97%);
+    background-size: 100% 2.5rem; 
+}
+
+.job-card {
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0 #000;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+.job-card:hover {
+    transform: translateY(-2px) translateX(-2px);
+    box-shadow: 6px 6px 0 #F87171;
+}
+.job-button {
+    background-color: #000;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+.job-button:hover {
+    background-color: #F87171;
+}
+header { border-bottom: 3px dashed #000; }
+.search-input {
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Fresher & Early-Career Jobs Portal</h1>
-    <p>Aggregated jobs for freshers and < 2 years experience</p>
-  </header>
+<header class="text-center py-8 bg-white/70 backdrop-blur-sm sticky top-0 z-10">
+    <h1 class="text-4xl font-bold">🗒️ Karriere India | The Opportunity Journal</h1>
+    <p class="text-xl mt-2">A clear path to your next role. No distractions, just honest listings.</p>
+</header>
 
-  <main>
-    <div id="jobs-container">
-      <p>Loading jobs...</p>
+<main class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold mb-8 text-center">Latest Opportunities</h2>
+
+    <!-- Search -->
+    <div class="flex justify-center mb-10">
+        <input type="text" id="searchInput" placeholder="Scribble down your desired job, company, or location..." class="search-input w-full max-w-xl">
     </div>
-  </main>
 
-  <footer>
-    &copy; 2025 Job Aggregator. Built by Akshay & Chattu.
-  </footer>
+    <!-- Jobs container -->
+    <div id="job-listings" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"></div>
+</main>
 
-  <script>
-    // Fetch JSON dynamically
-    fetch('real_jobs.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('jobs-container');
-        container.innerHTML = ""; // clear "Loading..."
+<footer class="text-center py-6 border-t-2 border-black mt-10">
+    <p>✏️ Curated for Growth · © 2025 Karriere India</p>
+</footer>
 
-        if (data.length === 0) {
-          container.innerHTML = "<p>No jobs found currently.</p>";
-          return;
-        }
+<script>
+async function loadJobs(file, containerId) {
+    const res = await fetch(file);
+    const jobs = await res.json();
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
 
-        data.forEach(job => {
-          const div = document.createElement('div');
-          div.classList.add('job-card');
-          div.innerHTML = `
-            <div class="job-title">${job.title}</div>
-            <div class="job-meta">${job.company} | ${job.location}</div>
-            <div class="job-meta">Posted: ${job.postedDate}</div>
-            <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
-          `;
-          container.appendChild(div);
-        });
-      })
-      .catch(err => {
-        console.error("Failed to load jobs:", err);
-        document.getElementById('jobs-container').innerHTML = "<p>Failed to load jobs.</p>";
-      });
-  </script>
+    jobs.forEach(job => {
+        const card = document.createElement("div");
+        card.className = "job-card p-6 space-y-3";
+        card.innerHTML = `
+            <h3 class="text-2xl font-bold">${job.title}</h3>
+            <p class="text-lg mt-1">${job.company}</p>
+            <p class="text-sm mt-1">📍 ${job.location} | 📅 Posted: ${job.postedDate}</p>
+            <p class="text-gray-600 mt-2">${job.description}</p>
+            <a href="${job.link}" target="_blank" class="job-button inline-block">Jump to Apply →</a>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Load all jobs
+loadJobs("real_jobs.json", "job-listings");
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', () => loadJobs("real_jobs.json", "job-listings"));
+</script>
 
 </body>
 </html>
