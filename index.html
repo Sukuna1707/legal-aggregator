@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresher Jobs India</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <header class="bg-blue-600 text-white p-6 text-center text-2xl font-bold">
+        India Fresher & 0–2 Yrs Experience Jobs
+    </header>
+
+    <div class="p-6">
+        <input type="text" id="searchSkill" placeholder="Search by skill..." class="border p-2 rounded w-full mb-4">
+        <input type="text" id="searchLocation" placeholder="Search by location..." class="border p-2 rounded w-full mb-4">
+        <button id="filterBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Filter Jobs</button>
+    </div>
+
+    <div id="jobList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+        <!-- Jobs will be rendered here -->
+    </div>
+
+    <script>
+        async function loadJobs() {
+            const res = await fetch('jobs.json');
+            let jobs = await res.json();
+
+            function render(filteredJobs) {
+                const container = document.getElementById('jobList');
+                container.innerHTML = '';
+                filteredJobs.forEach(job => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-4 rounded shadow hover:shadow-lg transition';
+                    card.innerHTML = `
+                        <h2 class="font-bold text-lg">${job.title}</h2>
+                        <p class="text-gray-700">${job.company}</p>
+                        <p class="text-gray-500">${job.location}</p>
+                        <p class="text-gray-500">${job.experience}</p>
+                        <a href="${job.link}" target="_blank" class="text-blue-600 hover:underline">Apply</a>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            render(jobs);
+
+            document.getElementById('filterBtn').addEventListener('click', () => {
+                const skill = document.getElementById('searchSkill').value.toLowerCase();
+                const location = document.getElementById('searchLocation').value.toLowerCase();
+                const filtered = jobs.filter(job =>
+                    job.title.toLowerCase().includes(skill) &&
+                    job.location.toLowerCase().includes(location)
+                );
+                render(filtered);
+            });
+        }
+
+        loadJobs();
+    </script>
+</body>
+</html>
