@@ -5,59 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fresher Jobs Portal</title>
   <style>
-    body {
-      margin: 0; font-family: 'Segoe UI', sans-serif; background: #f8fafc; color: #333;
-    }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f8fafc; color: #333; }
     header {
       background: linear-gradient(135deg, #0d6efd, #6610f2);
-      color: #fff; padding: 30px 15px; text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      color: white; text-align: center; padding: 80px 20px;
     }
-    header h1 { margin-bottom: 10px; font-size: 2rem; }
-    header p { font-size: 1.1rem; opacity: 0.9; }
+    header h1 { font-size: 2.5rem; margin-bottom: 15px; }
+    header p { font-size: 1.2rem; margin-bottom: 25px; }
+    .search-box {
+      max-width: 500px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .search-box input {
+      padding: 12px; border-radius: 6px; border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+    .search-box button {
+      padding: 12px; background: #198754; color: white; border: none;
+      border-radius: 6px; font-size: 1rem; cursor: pointer; font-weight: bold;
+      transition: background 0.2s;
+    }
+    .search-box button:hover { background: #157347; }
 
-    main { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
-
+    main { max-width: 1000px; margin: 30px auto; padding: 0 15px; display: none; }
     .job-card {
-      background: #fff; border-radius: 12px;
-      padding: 20px; margin-bottom: 20px;
+      background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .job-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-    }
-    .job-title {
-      font-size: 1.3rem; font-weight: 600; color: #0d6efd;
-      margin-bottom: 8px;
-    }
-    .job-meta {
-      font-size: 0.9rem; color: #555; margin-bottom: 4px;
-    }
+    .job-card:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,0.12); }
+    .job-title { font-size: 1.3rem; font-weight: 600; color: #0d6efd; margin-bottom: 8px; }
+    .job-meta { font-size: 0.9rem; color: #555; margin-bottom: 4px; }
     .apply-btn {
-      display: inline-block; margin-top: 10px;
-      background: #198754; color: white;
-      padding: 10px 18px; border-radius: 6px;
-      text-decoration: none; font-weight: bold;
-      transition: background 0.2s ease;
+      display: inline-block; margin-top: 10px; background: #198754; color: white;
+      padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: bold;
+      transition: background 0.2s;
     }
     .apply-btn:hover { background: #157347; }
 
-    footer {
-      text-align: center; padding: 25px; margin-top: 40px;
-      font-size: 0.9rem; color: #777; border-top: 1px solid #eee;
-    }
+    footer { text-align: center; padding: 25px; margin-top: 40px; font-size: 0.9rem; color: #777; border-top: 1px solid #eee; }
   </style>
 </head>
 <body>
 
+  <!-- Hero Section -->
   <header>
     <h1>🚀 Fresher & Early-Career Jobs</h1>
-    <p>All-in-one aggregator for freshers &lt; 2 years experience</p>
+    <p>One-stop platform for freshers &lt; 2 years experience</p>
+    <div class="search-box">
+      <input type="text" id="roleInput" placeholder="Enter job role (e.g. Python Developer)">
+      <input type="text" id="locationInput" placeholder="Enter location (e.g. Bangalore)">
+      <button onclick="searchJobs()">Search Jobs</button>
+      <button onclick="showAllJobs()" style="background:#0d6efd;">See All Jobs</button>
+    </div>
   </header>
 
+  <!-- Results Section -->
   <main>
+    <h2 style="margin-bottom:20px;">Available Jobs</h2>
     <div id="jobs-container"><p>Loading jobs...</p></div>
   </main>
 
@@ -66,33 +71,57 @@
   </footer>
 
   <script>
+    let allJobs = [];
+
+    // Load jobs JSON
     fetch('real_jobs.json')
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
-        const container = document.getElementById('jobs-container');
-        container.innerHTML = "";
-
-        if (!data || data.length === 0) {
-          container.innerHTML = "<p>No jobs available currently.</p>";
-          return;
-        }
-
-        data.forEach(job => {
-          const div = document.createElement('div');
-          div.classList.add('job-card');
-          div.innerHTML = `
-            <div class="job-title">${job.title}</div>
-            <div class="job-meta"><strong>${job.company}</strong> | ${job.location || 'Location not specified'}</div>
-            <div class="job-meta">Posted: ${job.postedDate || 'Recently'}</div>
-            <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
-          `;
-          container.appendChild(div);
-        });
+        allJobs = data;
+        document.getElementById('jobs-container').innerHTML = "<p>Use search to find jobs or see all jobs.</p>";
       })
       .catch(err => {
-        console.error("Error loading jobs:", err);
+        console.error(err);
         document.getElementById('jobs-container').innerHTML = "<p>Failed to load jobs.</p>";
       });
+
+    // Render jobs function
+    function renderJobs(jobs) {
+      const container = document.getElementById('jobs-container');
+      container.innerHTML = "";
+      if (!jobs.length) {
+        container.innerHTML = "<p>No matching jobs found.</p>";
+        return;
+      }
+      jobs.forEach(job => {
+        const div = document.createElement('div');
+        div.classList.add('job-card');
+        div.innerHTML = `
+          <div class="job-title">${job.title}</div>
+          <div class="job-meta"><strong>${job.company}</strong> | ${job.location}</div>
+          <div class="job-meta">Posted: ${job.postedDate}</div>
+          <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
+        `;
+        container.appendChild(div);
+      });
+      document.querySelector('main').style.display = "block";
+    }
+
+    // Search handler
+    function searchJobs() {
+      const role = document.getElementById('roleInput').value.toLowerCase();
+      const loc = document.getElementById('locationInput').value.toLowerCase();
+      const filtered = allJobs.filter(j =>
+        j.title.toLowerCase().includes(role) &&
+        j.location.toLowerCase().includes(loc)
+      );
+      renderJobs(filtered);
+    }
+
+    // Show all jobs
+    function showAllJobs() {
+      renderJobs(allJobs);
+    }
   </script>
 
 </body>
