@@ -1,128 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fresher Jobs Portal</title>
-  <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f8fafc; color: #333; }
-    header {
-      background: linear-gradient(135deg, #0d6efd, #6610f2);
-      color: white; text-align: center; padding: 80px 20px;
-    }
-    header h1 { font-size: 2.5rem; margin-bottom: 15px; }
-    header p { font-size: 1.2rem; margin-bottom: 25px; }
-    .search-box {
-      max-width: 500px; margin: 0 auto;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .search-box input {
-      padding: 12px; border-radius: 6px; border: 1px solid #ddd;
-      font-size: 1rem;
-    }
-    .search-box button {
-      padding: 12px; background: #198754; color: white; border: none;
-      border-radius: 6px; font-size: 1rem; cursor: pointer; font-weight: bold;
-      transition: background 0.2s;
-    }
-    .search-box button:hover { background: #157347; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Canvas | Your Dream Job Awaits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #F5A623;
+      --text-dark: #333;
+      --text-light: #fff;
+      --bg-light: #f4f7f9;
+      --card-bg: #fff;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-hover: rgba(0, 0, 0, 0.15);
+    }
 
-    main { max-width: 1000px; margin: 30px auto; padding: 0 15px; display: none; }
-    .job-card {
-      background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .job-card:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,0.12); }
-    .job-title { font-size: 1.3rem; font-weight: 600; color: #0d6efd; margin-bottom: 8px; }
-    .job-meta { font-size: 0.9rem; color: #555; margin-bottom: 4px; }
-    .apply-btn {
-      display: inline-block; margin-top: 10px; background: #198754; color: white;
-      padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: bold;
-      transition: background 0.2s;
-    }
-    .apply-btn:hover { background: #157347; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    footer { text-align: center; padding: 25px; margin-top: 40px; font-size: 0.9rem; color: #777; border-top: 1px solid #eee; }
-  </style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      text-align: center;
+      padding: 3rem 1rem;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 20%);
+      background-size: 20px 20px;
+      animation: subtle-flow 20s linear infinite;
+    }
+
+    @keyframes subtle-flow {
+      from { background-position: 0 0; }
+      to { background-position: 100% 100%; }
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin-top: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .job-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px var(--shadow-light);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px var(--shadow-hover);
+    }
+
+    .job-card-header {
+      margin-bottom: 1rem;
+    }
+    
+    .job-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .job-company {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-top: 0.25rem;
+    }
+    
+    .job-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0.5rem;
+    }
+
+    .job-footer {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .apply-btn {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: var(--text-light);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .apply-btn:hover {
+      background-color: #E2961F;
+      transform: scale(1.05);
+    }
+
+    .message {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #666;
+      padding: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <header>
-    <h1>🚀 Fresher & Early-Career Jobs</h1>
-    <p>One-stop platform for freshers &lt; 2 years experience</p>
-    <div class="search-box">
-      <input type="text" id="roleInput" placeholder="Enter job role (e.g. Python Developer)">
-      <input type="text" id="locationInput" placeholder="Enter location (e.g. Bangalore)">
-      <button onclick="searchJobs()">Search Jobs</button>
-      <button onclick="showAllJobs()" style="background:#0d6efd;">See All Jobs</button>
-    </div>
-  </header>
+  <header>
+    <h1>Career Canvas</h1>
+    <p>Find your next big opportunity with us.</p>
+  </header>
 
-  <!-- Results Section -->
-  <main>
-    <h2 style="margin-bottom:20px;">Available Jobs</h2>
-    <div id="jobs-container"><p>Loading jobs...</p></div>
-  </main>
+  <main>
+    <div id="jobs-container" class="jobs-grid">
+      <p class="message">Loading jobs...</p>
+    </div>
+  </main>
 
-  <footer>
-    &copy; 2025 Career Aggregator | Built by Akshay & Chattu 💙
-  </footer>
+  <footer>
+    &copy; 2025 Career Canvas. All rights reserved.
+  </footer>
 
-  <script>
-    let allJobs = [];
+  <script>
+    // Function to fetch and display job data
+    async function fetchJobs() {
+      const container = document.getElementById('jobs-container');
+      try {
+        const response = await fetch('real_jobs.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        
+        container.innerHTML = ''; // Clear loading message
 
-    // Load jobs JSON
-    fetch('real_jobs.json')
-      .then(r => r.json())
-      .then(data => {
-        allJobs = data;
-        document.getElementById('jobs-container').innerHTML = "<p>Use search to find jobs or see all jobs.</p>";
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById('jobs-container').innerHTML = "<p>Failed to load jobs.</p>";
-      });
+        if (data.length === 0) {
+          container.innerHTML = '<p class="message">No jobs found currently.</p>';
+          return;
+        }
 
-    // Render jobs function
-    function renderJobs(jobs) {
-      const container = document.getElementById('jobs-container');
-      container.innerHTML = "";
-      if (!jobs.length) {
-        container.innerHTML = "<p>No matching jobs found.</p>";
-        return;
-      }
-      jobs.forEach(job => {
-        const div = document.createElement('div');
-        div.classList.add('job-card');
-        div.innerHTML = `
-          <div class="job-title">${job.title}</div>
-          <div class="job-meta"><strong>${job.company}</strong> | ${job.location}</div>
-          <div class="job-meta">Posted: ${job.postedDate}</div>
-          <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
-        `;
-        container.appendChild(div);
-      });
-      document.querySelector('main').style.display = "block";
-    }
+        data.forEach(job => {
+          const jobCard = document.createElement('div');
+          jobCard.className = 'job-card';
+          jobCard.innerHTML = `
+            <div class="job-card-header">
+              <h2 class="job-title">${job.title}</h2>
+              <p class="job-company">${job.company}</p>
+              <p class="job-meta">📍 ${job.location} | 📅 Posted: ${job.postedDate}</p>
+            </div>
+            <div class="job-footer">
+              <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
+            </div>
+          `;
+          container.appendChild(jobCard);
+        });
+      } catch (error) {
+        console.error("Failed to load jobs:", error);
+        container.innerHTML = '<p class="message">Failed to load jobs. Please try again later.</p>';
+      }
+    }
 
-    // Search handler
-    function searchJobs() {
-      const role = document.getElementById('roleInput').value.toLowerCase();
-      const loc = document.getElementById('locationInput').value.toLowerCase();
-      const filtered = allJobs.filter(j =>
-        j.title.toLowerCase().includes(role) &&
-        j.location.toLowerCase().includes(loc)
-      );
-      renderJobs(filtered);
-    }
-
-    // Show all jobs
-    function showAllJobs() {
-      renderJobs(allJobs);
-    }
-  </script>
+    // Load jobs on page load
+    document.addEventListener('DOMContentLoaded', fetchJobs);
+  </script>
 
 </body>
 </html>
