@@ -1,230 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Career Canvas | Your Dream Job Awaits</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* General Styles */
-    :root {
-      --primary-color: #4A90E2;
-      --secondary-color: #F5A623;
-      --text-dark: #333;
-      --text-light: #fff;
-      --bg-light: #f4f7f9;
-      --card-bg: #fff;
-      --shadow-light: rgba(0, 0, 0, 0.1);
-      --shadow-hover: rgba(0, 0, 0, 0.15);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    /* Header */
-    header {
-      background-color: var(--primary-color);
-      color: var(--text-light);
-      text-align: center;
-      padding: 3rem 1rem;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 20%);
-      background-size: 20px 20px;
-      animation: subtle-flow 20s linear infinite;
-    }
-
-    @keyframes subtle-flow {
-      from { background-position: 0 0; }
-      to { background-position: 100% 100%; }
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      position: relative;
-      z-index: 1;
-    }
-
-    header p {
-      font-size: 1.1rem;
-      font-weight: 300;
-      margin-top: 0.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Main Content */
-    main {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    .jobs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .job-card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px var(--shadow-light);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .job-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px var(--shadow-hover);
-    }
-
-    .job-card-header {
-      margin-bottom: 1rem;
-    }
-    
-    .job-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .job-company {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-top: 0.25rem;
-    }
-    
-    .job-meta {
-      font-size: 0.9rem;
-      color: #888;
-      margin-top: 0.5rem;
-    }
-
-    .job-footer {
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .apply-btn {
-      display: inline-block;
-      background-color: var(--secondary-color);
-      color: var(--text-light);
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .apply-btn:hover {
-      background-color: #E2961F;
-      transform: scale(1.05);
-    }
-
-    .message {
-      text-align: center;
-      font-size: 1.2rem;
-      color: #666;
-      padding: 2rem;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fresher Jobs Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-  <header>
-    <h1>Career Canvas</h1>
-    <p>Find your next big opportunity with us.</p>
-  </header>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+        🚀 Find Fresher Jobs in India
+      </h1>
+      <p class="text-lg md:text-xl mb-8 opacity-90">
+        One platform for freshers &lt; 2 years experience.  
+        Get curated jobs from trusted sources — no distractions, no spam.
+      </p>
 
-  <main>
-    <div id="jobs-container" class="jobs-grid">
-      <p class="message">Loading jobs...</p>
-    </div>
-  </main>
+      <!-- Search Box -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 max-w-3xl mx-auto flex flex-col md:flex-row gap-4">
+        <input id="roleInput" type="text" placeholder="Job role (e.g. Python Developer)" class="flex-1 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 text-gray-700">
+        <input id="locationInput" type="text" placeholder="Location (e.g. Bangalore)" class="flex-1 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 text-gray-700">
+        <button onclick="searchJobs()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition">
+          Search
+        </button>
+        <button onclick="showAllJobs()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-3 rounded-lg shadow transition">
+          See All
+        </button>
+      </div>
+    </div>
+  </section>
 
-  <footer>
-    &copy; 2025 Career Canvas. All rights reserved.
-  </footer>
+  <!-- Job Results -->
+  <main id="results" class="max-w-5xl mx-auto px-6 py-12 hidden">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900">Available Jobs</h2>
+    <div id="jobs-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Job cards dynamically render here -->
+    </div>
+  </main>
 
-  <script>
-    // Function to fetch and display job data
-    async function fetchJobs() {
-      const container = document.getElementById('jobs-container');
-      try {
-        const response = await fetch('real_jobs.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        
-        container.innerHTML = ''; // Clear loading message
+  <!-- Footer -->
+  <footer class="bg-gray-100 py-6 mt-12 text-center text-gray-600 text-sm">
+    &copy; 2025 Career Aggregator · Built with 💙 by Akshay & Chattu
+  </footer>
 
-        if (data.length === 0) {
-          container.innerHTML = '<p class="message">No jobs found currently.</p>';
-          return;
-        }
+  <script>
+    let allJobs = [];
 
-        data.forEach(job => {
-          const jobCard = document.createElement('div');
-          jobCard.className = 'job-card';
-          jobCard.innerHTML = `
-            <div class="job-card-header">
-              <h2 class="job-title">${job.title}</h2>
-              <p class="job-company">${job.company}</p>
-              <p class="job-meta">📍 ${job.location} | 📅 Posted: ${job.postedDate}</p>
-            </div>
-            <div class="job-footer">
-              <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
-            </div>
-          `;
-          container.appendChild(jobCard);
-        });
-      } catch (error) {
-        console.error("Failed to load jobs:", error);
-        container.innerHTML = '<p class="message">Failed to load jobs. Please try again later.</p>';
-      }
-    }
+    // Load JSON file
+    fetch("real_jobs.json")
+      .then(res => res.json())
+      .then(data => { allJobs = data; })
+      .catch(err => console.error("Error loading jobs:", err));
 
-    // Load jobs on page load
-    document.addEventListener('DOMContentLoaded', fetchJobs);
-  </script>
+    // Render Jobs
+    function renderJobs(jobs) {
+      const container = document.getElementById("jobs-container");
+      container.innerHTML = "";
 
+      if (!jobs.length) {
+        container.innerHTML = `<p class="col-span-full text-gray-500 text-lg">No matching jobs found.</p>`;
+        return;
+      }
+
+      jobs.forEach(job => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition";
+        card.innerHTML = `
+          <h3 class="text-lg font-bold text-indigo-600">${job.title}</h3>
+          <p class="text-sm text-gray-600 mb-2">${job.company} · ${job.location || "Location not specified"}</p>
+          <p class="text-xs text-gray-500 mb-4">Posted: ${job.postedDate || "Recently"}</p>
+          <a href="${job.link}" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+            Apply Now
+          </a>
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById("results").classList.remove("hidden");
+    }
+
+    // Search Function
+    function searchJobs() {
+      const role = document.getElementById("roleInput").value.toLowerCase();
+      const loc = document.getElementById("locationInput").value.toLowerCase();
+      const filtered = allJobs.filter(j =>
+        j.title.toLowerCase().includes(role) &&
+        j.location.toLowerCase().includes(loc)
+      );
+      renderJobs(filtered);
+    }
+
+    // Show All Jobs
+    function showAllJobs() { renderJobs(allJobs); }
+  </script>
 </body>
 </html>
