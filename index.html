@@ -4,117 +4,94 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fresher Jobs Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset & Base */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-    body { background: linear-gradient(120deg, #f8f9fa, #e9ecef); color: #333; line-height: 1.6; }
-    a { text-decoration: none; }
-
-    /* Header */
-    header { 
-      background: linear-gradient(90deg, #0d6efd, #6610f2);
-      color: white; 
-      padding: 30px 20px; 
-      text-align: center;
-      clip-path: ellipse(100% 100% at 50% 0%);
+    body {
+      margin: 0; font-family: 'Segoe UI', sans-serif; background: #f8fafc; color: #333;
     }
-    header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
-    header p { font-size: 1.1rem; color: #e0e0e0; }
+    header {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      color: #fff; padding: 30px 15px; text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 { margin-bottom: 10px; font-size: 2rem; }
+    header p { font-size: 1.1rem; opacity: 0.9; }
 
-    /* Main Container */
-    main { max-width: 1000px; margin: 40px auto; padding: 0 15px; }
+    main { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
 
-    /* Job Card */
     .job-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
+      background: #fff; border-radius: 12px;
+      padding: 20px; margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .job-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
     }
-
-    .job-title { font-size: 1.5rem; font-weight: 700; color: #0d6efd; margin-bottom: 8px; }
-    .job-meta { font-size: 0.95rem; color: #6c757d; margin-bottom: 5px; }
+    .job-title {
+      font-size: 1.3rem; font-weight: 600; color: #0d6efd;
+      margin-bottom: 8px;
+    }
+    .job-meta {
+      font-size: 0.9rem; color: #555; margin-bottom: 4px;
+    }
     .apply-btn {
-      display: inline-block;
-      background: linear-gradient(90deg, #198754, #20c997);
-      color: white;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 50px;
-      margin-top: 12px;
-      transition: background 0.3s, transform 0.2s;
+      display: inline-block; margin-top: 10px;
+      background: #198754; color: white;
+      padding: 10px 18px; border-radius: 6px;
+      text-decoration: none; font-weight: bold;
+      transition: background 0.2s ease;
     }
-    .apply-btn:hover { 
-      background: linear-gradient(90deg, #157347, #1ca784); 
-      transform: scale(1.05);
-    }
+    .apply-btn:hover { background: #157347; }
 
-    /* Footer */
-    footer { text-align: center; padding: 25px 15px; font-size: 0.9rem; color: #888; margin-top: 50px; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .job-title { font-size: 1.3rem; }
-      .apply-btn { padding: 8px 18px; font-size: 0.9rem; }
+    footer {
+      text-align: center; padding: 25px; margin-top: 40px;
+      font-size: 0.9rem; color: #777; border-top: 1px solid #eee;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Fresher & Early-Career Jobs Portal</h1>
-    <p>Aggregated jobs for freshers and < 2 years experience. Find your next opportunity!</p>
+    <h1>🚀 Fresher & Early-Career Jobs</h1>
+    <p>All-in-one aggregator for freshers &lt; 2 years experience</p>
   </header>
 
   <main>
-    <div id="jobs-container">
-      <p style="text-align:center; font-size:1.1rem; color:#555;">Loading jobs...</p>
-    </div>
+    <div id="jobs-container"><p>Loading jobs...</p></div>
   </main>
 
   <footer>
-    &copy; 2025 Job Aggregator. Built with ❤️ by Akshay & Chattu.
+    &copy; 2025 Career Aggregator | Built by Akshay & Chattu 💙
   </footer>
 
   <script>
     fetch('real_jobs.json')
-      .then(response => {
-        if (!response.ok) throw new Error('Network error: ' + response.statusText);
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         const container = document.getElementById('jobs-container');
         container.innerHTML = "";
 
         if (!data || data.length === 0) {
-          container.innerHTML = "<p style='text-align:center;'>No jobs available at the moment.</p>";
+          container.innerHTML = "<p>No jobs available currently.</p>";
           return;
         }
 
         data.forEach(job => {
           const div = document.createElement('div');
-          div.className = 'job-card';
+          div.classList.add('job-card');
           div.innerHTML = `
             <div class="job-title">${job.title}</div>
-            <div class="job-meta">${job.company} | ${job.location}</div>
-            <div class="job-meta">Posted: ${job.postedDate}</div>
+            <div class="job-meta"><strong>${job.company}</strong> | ${job.location || 'Location not specified'}</div>
+            <div class="job-meta">Posted: ${job.postedDate || 'Recently'}</div>
             <a href="${job.link}" target="_blank" class="apply-btn">Apply Now</a>
           `;
           container.appendChild(div);
         });
       })
       .catch(err => {
-        console.error("Failed to load jobs:", err);
-        document.getElementById('jobs-container').innerHTML = "<p style='text-align:center; color:red;'>Failed to load jobs.</p>";
+        console.error("Error loading jobs:", err);
+        document.getElementById('jobs-container').innerHTML = "<p>Failed to load jobs.</p>";
       });
   </script>
 
