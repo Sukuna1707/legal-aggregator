@@ -3,85 +3,233 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fresher Jobs Portal</title>
+  <title>Fresher Jobs Portal - Kickstart Your Career</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'indigo-main': '#4f46e5',
+            'blue-accent': '#3b82f6',
+            'gray-bg': '#f9fafb',
+          }
+        },
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    .hero-shadow {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    }
+    .job-card {
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .job-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5); /* Blue-300 ring */
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-bg font-sans text-gray-900 min-h-screen flex flex-col">
 
-  <!-- Hero Section -->
-  <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20">
-    <div class="max-w-5xl mx-auto text-center px-4">
-      <h1 class="text-4xl md:text-6xl font-bold">Kickstart Your Career 🚀</h1>
-      <p class="mt-4 text-lg md:text-xl">Find curated fresher & early-career jobs across top companies</p>
-      <a href="jobs.html" class="mt-6 inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow hover:bg-gray-100">
-        Browse Jobs
-      </a>
+  <!-- Fixed Navigation Bar -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="#" class="text-2xl font-extrabold text-indigo-main tracking-tight">
+          FresherJobs
+        </a>
+        <div class="flex items-center space-x-4">
+          <a href="#" class="text-gray-600 hover:text-indigo-main font-medium transition duration-150">Jobs</a>
+          <a href="#" class="text-gray-600 hover:text-indigo-main font-medium transition duration-150">Companies</a>
+          <a href="#" class="text-gray-600 hover:text-indigo-main font-medium transition duration-150">Advice</a>
+          
+          <!-- Auth Buttons -->
+          <a href="#" class="px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 transition duration-150">
+            Login
+          </a>
+          <a href="#" class="px-3 py-1.5 bg-indigo-main text-sm font-medium rounded-lg text-white shadow hover:bg-indigo-700 transition duration-150">
+            Post a Job
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Search Form -->
+  <header class="bg-gradient-to-br from-indigo-main to-blue-accent relative overflow-hidden py-24 sm:py-32">
+    <!-- Subtle Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <pattern id="pattern-circles" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="white"></circle>
+        </pattern>
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"></rect>
+      </svg>
+    </div>
+
+    <div class="max-w-4xl mx-auto text-center px-4 relative z-10">
+      <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4">
+        Kickstart Your Career 🚀
+      </h1>
+      <p class="text-xl md:text-2xl text-indigo-100 font-light mb-10">
+        Find curated entry-level jobs tailored for fresh graduates.
+      </p>
+
+      <!-- Search Bar -->
+      <form class="bg-white p-2 rounded-xl hero-shadow flex items-center max-w-2xl mx-auto">
+        <input 
+          type="search" 
+          placeholder="Search job title, skill, or company (e.g., 'React', 'Analyst')" 
+          class="search-input w-full px-4 py-3 text-lg text-gray-800 border-none rounded-l-lg transition duration-300"
+          aria-label="Search jobs"
+        >
+        <button 
+          type="submit" 
+          class="bg-green-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-600 transition duration-300 flex-shrink-0"
+        >
+          Search
+        </button>
+      </form>
     </div>
   </header>
 
-  <!-- Categories -->
-  <section class="py-16">
-    <div class="max-w-5xl mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-10">Explore Categories</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="p-6 bg-white rounded-xl shadow hover:shadow-md">
-          <span class="text-4xl">💻</span>
-          <h3 class="mt-2 font-semibold">Software</h3>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow hover:shadow-md">
-          <span class="text-4xl">📊</span>
-          <h3 class="mt-2 font-semibold">Data</h3>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow hover:shadow-md">
-          <span class="text-4xl">🎨</span>
-          <h3 class="mt-2 font-semibold">Design</h3>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow hover:shadow-md">
-          <span class="text-4xl">🔐</span>
-          <h3 class="mt-2 font-semibold">Cybersecurity</h3>
+  <main class="flex-grow">
+    <!-- Categories -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-10 text-gray-800">Popular Job Categories</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-indigo-main hover:text-indigo-main job-card">
+            <span class="text-4xl">💻</span>
+            <h3 class="mt-3 font-semibold text-lg">Software Dev</h3>
+          </div>
+          <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-indigo-main hover:text-indigo-main job-card">
+            <span class="text-4xl">📊</span>
+            <h3 class="mt-3 font-semibold text-lg">Data Science</h3>
+          </div>
+          <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-indigo-main hover:text-indigo-main job-card">
+            <span class="text-4xl">🎨</span>
+            <h3 class="mt-3 font-semibold text-lg">UI/UX Design</h3>
+          </div>
+          <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-indigo-main hover:text-indigo-main job-card">
+            <span class="text-4xl">📈</span>
+            <h3 class="mt-3 font-semibold text-lg">Marketing</h3>
+          </div>
+          <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:border-indigo-main hover:text-indigo-main job-card">
+            <span class="text-4xl">🛠️</span>
+            <h3 class="mt-3 font-semibold text-lg">Engineering</h3>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Featured Jobs Preview -->
-  <section class="bg-gray-100 py-16">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-10">Latest Jobs</h2>
-      <div id="latest-jobs" class="grid md:grid-cols-2 gap-6"></div>
-      <div class="text-center mt-8">
-        <a href="jobs.html" class="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700">View All Jobs</a>
+    <!-- Featured Jobs Preview -->
+    <section class="bg-gray-100 py-16">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Featured Opportunities</h2>
+        <div id="latest-jobs" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Job Cards will be injected here by JavaScript -->
+        </div>
+        <div class="text-center mt-12">
+          <a href="#" class="bg-indigo-main text-white font-semibold px-8 py-3 rounded-xl shadow-md hover:bg-indigo-700 transition duration-300 text-lg">
+            View All Jobs &rarr;
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Call to Action for Resume Upload -->
+    <section class="py-16">
+        <div class="max-w-5xl mx-auto px-4 text-center bg-white rounded-xl shadow-2xl p-10 border-t-4 border-blue-accent">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Ready to Get Hired?</h2>
+            <p class="text-lg text-gray-600 mb-6">Upload your resume to get instant match recommendations and appear in recruiter searches.</p>
+            <a href="#" class="bg-blue-accent text-white font-bold px-8 py-3 rounded-full hover:bg-blue-700 transition duration-300 shadow-lg">
+                Upload Resume Now
+            </a>
+        </div>
+    </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="text-center py-6 text-gray-600 mt-10">
-    © 2025 Fresher Jobs Portal · Built by Akshay & Chattu
+  <footer class="text-center py-8 bg-gray-900 text-gray-400 mt-16">
+    <div class="max-w-5xl mx-auto px-4">
+      <p class="text-lg font-semibold mb-2">FresherJobs</p>
+      <p class="text-sm">Connecting fresh talent with amazing first-job opportunities.</p>
+      <div class="mt-4 space-x-4 text-sm">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <span class="text-gray-600">|</span>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+      <p class="mt-6 text-xs text-gray-600">© 2025 Fresher Jobs Portal · Built with passion.</p>
+    </div>
   </footer>
 
   <script>
-    // Load jobs from JSON and show only top 3
-    fetch('real_jobs.json')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('latest-jobs');
-        const previewJobs = data.slice(0, 3); // just 3 jobs
-        previewJobs.forEach(job => {
-          const div = document.createElement('div');
-          div.className = "p-6 bg-white rounded-xl shadow hover:shadow-md";
-          div.innerHTML = `
-            <h3 class="text-xl font-bold text-blue-600">${job.title}</h3>
-            <p class="text-gray-700">${job.company} · ${job.location}</p>
-            <p class="text-sm text-gray-500 mt-2">Posted: ${job.postedDate}</p>
-            <a href="${job.link}" target="_blank" class="mt-3 inline-block text-white bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700">Apply</a>
-          `;
-          container.appendChild(div);
-        });
-      })
-      .catch(() => {
-        document.getElementById('latest-jobs').innerHTML = "<p class='text-center text-gray-500'>No jobs found.</p>";
+    // Placeholder data since 'real_jobs.json' is external and cannot be loaded here.
+    const jobsData = [
+      { id: 1, title: 'Associate Cloud Engineer (Fresher)', company: 'TechNova Solutions', location: 'Hyderabad, India', postedDate: '1 day ago', link: '#', type: 'Full-Time', salary: '₹5L - 7L' },
+      { id: 2, title: 'Junior Data Analyst', company: 'Global Metrics Co.', location: 'Bengaluru, India', postedDate: '3 days ago', link: '#', type: 'Full-Time', salary: '₹4.5L - 6L' },
+      { id: 3, title: 'Entry Level UX Designer', company: 'Creative Leap', location: 'Mumbai, India', postedDate: '5 days ago', link: '#', type: 'Internship', salary: 'Stipend' },
+      { id: 4, title: 'Graduate Trainee - Electrical', company: 'PowerGrid Infra', location: 'Pune, India', postedDate: '1 week ago', link: '#', type: 'Full-Time', salary: '₹5L - 8L' },
+    ];
+
+    function renderJobs() {
+      const container = document.getElementById('latest-jobs');
+      // Show only top 4 jobs for the preview
+      const previewJobs = jobsData.slice(0, 4); 
+      
+      if (previewJobs.length === 0) {
+        container.innerHTML = "<p class='text-center text-xl text-gray-500 col-span-2'>No jobs found at the moment. Check back soon!</p>";
+        return;
+      }
+
+      previewJobs.forEach(job => {
+        const div = document.createElement('div');
+        div.className = "job-card p-6 bg-white rounded-xl border border-gray-200 shadow-md flex flex-col justify-between";
+        
+        div.innerHTML = `
+          <div>
+            <h3 class="text-2xl font-bold text-indigo-main mb-1">${job.title}</h3>
+            <p class="text-lg text-gray-700 font-medium">${job.company}</p>
+            <div class="mt-3 space-y-1 text-sm text-gray-600">
+                <p class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-red-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                    ${job.location}
+                </p>
+                <p class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v8a2 2 0 002 2h12a2 2 0 002-2V9zM7 5a1 1 0 000 2h6a1 1 0 100-2H7z" /></svg>
+                    ${job.type}
+                </p>
+                <p class="flex items-center font-bold text-indigo-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-yellow-500" viewBox="0 0 20 20" fill="currentColor"><path d="M8.433 7.485c.31.228.641.408.99.535C10.024 8.167 10.49 8.25 11 8.25c.51 0 .976-.083 1.577-.229.349-.127.68-.307.99-.535A4.9 4.9 0 0014 6.75a5.002 5.002 0 00-10 0c0 .445.107.873.303 1.258zM11 11.25c.828 0 1.5-.722 1.5-1.611 0-.89-.672-1.611-1.5-1.611s-1.5.722-1.5 1.611c0 .89.672 1.611 1.5 1.611zm-2-1.611c0 .89-.672 1.611-1.5 1.611s-1.5-.722-1.5-1.611c0-.89.672-1.611 1.5-1.611s1.5.722 1.5 1.611z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1.89-6.938A5.992 5.992 0 0110 11c.39 0 .77.039 1.13.112v2.126c-.36-.073-.74-.112-1.13-.112-.39 0-.77.039-1.13.112v-2.126zm-2.062-1.19a4.5 4.5 0 000 3.376c.725.29 1.503.437 2.312.437s1.587-.147 2.312-.437a4.5 4.5 0 000-3.376c-.725-.29-1.503-.437-2.312-.437s-1.587.147-2.312.437z" clip-rule="evenodd" /></svg>
+                    ${job.salary} (Est.)
+                </p>
+            </div>
+            
+            <p class="text-xs text-gray-500 mt-4 border-t pt-2">Posted: ${job.postedDate}</p>
+          </div>
+          <a href="${job.link}" target="_blank" class="mt-4 inline-block text-center text-white bg-green-600 px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
+            View & Apply
+          </a>
+        `;
+        container.appendChild(div);
       });
+    }
+
+    // Call the function when the window loads
+    window.onload = renderJobs;
+
   </script>
 
 </body>
